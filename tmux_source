@@ -1,0 +1,2 @@
+bind-key S command-prompt -p "[SearchHosts]:" "run-shell \"python ~/MultiConnManager/search_res.py '%1'\""
+# bind-key S command-prompt -p "[SearchHosts]:" "split-window -h -l 50 \"python ~/MultiConnManager/search_res.py '%1';read\""
