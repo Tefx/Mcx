@@ -1,0 +1,6 @@
+{
+  "Mars/server1":{"ip":"127.0.0.1", "conn_type":"ssh", "auth_type":"password", "username":"tefx", "password":"123456"},
+  "Mars/server2":{"ip":"127.0.0.1", "conn_type":"ssh", "auth_type":"password", "username":"tefx", "password":"123456"},
+  "Mars/server3":{"ip":"127.0.0.1", "conn_type":"ssh", "auth_type":"password", "username":"tefx", "password":"123456"},
+  "Mars/server4":{"ip":"127.0.0.1", "conn_type":"ssh", "auth_type":"password", "username":"tefx", "password":"123456"}
+}

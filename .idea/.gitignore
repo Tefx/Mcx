@@ -1,0 +1,5 @@
+*.name
+/MultiConnManager.iml
+/misc.xml
+/modules.xml
+*.xml

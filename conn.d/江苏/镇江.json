@@ -1,0 +1,6 @@
+{
+  "镇江/测试" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"},
+  "镇江/开发2" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"},
+  "镇江/Oracle数据库" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"},
+  "镇江/备用MySQL数据库" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"}
+}
