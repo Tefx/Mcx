@@ -4,12 +4,12 @@ import os.path
 from helper import *
 import time
 
-def show_list(self_loc, list_f, callback, arg):
+def show_list(self_loc, arg):
     tmux_cmd("split-window -h -l 30",
-             exec_py(self_loc % ("-l %s %s" % (list_f, arg))))
+             exec_py(self_loc % ("-l %s" % arg)))
     time.sleep(0.2)
     tmux_cmd("copy-mode")
-    set_bindings(self_loc, callback)
+    set_bindings(self_loc)
     tmux_send_keys("M-R C-a C-Space C-e")
 
 def jump_prev():
@@ -28,13 +28,13 @@ def do_selected(func):
     tmux_send_keys("Enter")
     func(selection)
 
-def set_bindings(self_loc, callback):
+def set_bindings(self_loc):
     tmux_cmd("bind-key -n Up run-shell -b",
              exec_py(self_loc % "-k Up"))
     tmux_cmd("bind-key -n Down run-shell -b",
              exec_py(self_loc % "-k Down"))
     tmux_cmd("bind-key -t emacs-copy Enter copy-pipe",
-             exec_py(self_loc % ("-c %s" % callback)))
+             exec_py(self_loc % "-c"))
 
 def unset_bindings():
     tmux_cmd("unbind-key -n Up")
@@ -44,7 +44,7 @@ def unset_bindings():
 def list_selection(loc, argv, list_func, callback):
     loc += " %s"
     if sys.argv[1] == "-l":
-        get_res(list_func, argv[3:])
+        get_res(list_func, argv[2:])
         raw_input()
     elif argv[1] == "-c":
         do_selected(callback)
@@ -54,19 +54,13 @@ def list_selection(loc, argv, list_func, callback):
         elif argv[2] == "Down":
             jump_next()
     else:
-        show_list(loc, argv[1], argv[2], argv[3])
-
-
-def example_list(arg):
-    return ["aaaaa", "bbbbbb", "ccccccc"]
-
-def example_do(arg):
-    tmux_cmd("new-window -n %s" % arg)
+        show_list(loc, argv[1])
 
 if __name__ == '__main__':
     import sys
-    loc = "tmux/selection.py"
-    list_selection(loc, sys.argv, example_list, example_do())
+    example_list = lambda _: ["aaaaa", "bbbbbb", "ccccccc"]
+    example_do = lambda arg: tmux_cmd("new-window -n %s" % arg)
+    list_selection(__file__, sys.argv, example_list, example_do)
 
 
 

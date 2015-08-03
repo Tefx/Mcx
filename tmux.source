@@ -1,1 +1,1 @@
-bind-key S command-prompt -p "[Run]:" "run-shell -b \"python ~/Mcx/tmux/selection.py example_list example_do '%1'\""
+bind-key S command-prompt -p "[Run]:" "run-shell -b \"python ~/Mcx/tmux/selection.py '%1'\""
