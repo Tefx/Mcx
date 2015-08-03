@@ -2,10 +2,6 @@ import json
 import os
 import os.path
 
-CONF_DIRS = ["/etc/mcm/", ".mcm/", "/home/tefx/MultiConnManager/"]
-CONF_FILE = ".mcm.conf"
-CONN_DIR = "conn.d"
-
 # CONN has the form:
 # {"name" : "beijing/server1",
 #  "conn_type" : "ssh",
