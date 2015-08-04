@@ -3,8 +3,8 @@
 INSTALL_PATH=`pwd`
 OPS=${INSTALL_PATH}/operations.py
 
-setw -g automatic-rename off
-setw -g allow-rename off
+tmux setw -g automatic-rename off
+tmux setw -g allow-rename off
 
 tmux bind-key S command-prompt -p "[SearchHost]:" "run-shell -b '$OPS search_and_list \"%1\">/dev/null'"
 tmux bind-key v split-window -v "$OPS clone_conn"

@@ -8,9 +8,17 @@ all_checkers = [simple_checker, wildcard, pinyin.checker]
 def check_name(name, pattern):
     tags = name.split("/")
     subpattern = pattern.split("/")
-    if len(subpattern) > len(tags):
+    return match(tags, subpattern)
+
+def any_match(t, p):
+    return any(c(t, p) for c in all_checkers)
+
+def match(tags, pats):
+    if len(pats) > len(tags):
         return False
-    for t, s in zip(tags, subpattern):
-        if not any(c(t, s) for c in all_checkers):
-            return False
-    return True
+    if not pats:
+        return True
+    if any_match(tags[0], pats[0]):
+        return match(tags[1:], pats[1:])
+    else:
+        return match(tags[1:], pats)

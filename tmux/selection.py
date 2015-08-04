@@ -61,11 +61,4 @@ def list_selection(prefix, argv, list_func, callback):
         start_list_selection(prefix_cmd, argv)
 
 
-if __name__ == '__main__':
-    import sys
-    example_list = lambda _: ["aaaaa", "bbbbbb", "ccccccc"]
-    example_do = lambda arg: tmux_cmd("new-window -n %s" % arg)
-    list_selection(__file__, sys.argv[1:], example_list, example_do)
-
-
 
