@@ -4,8 +4,8 @@ import os.path
 from helper import tmux_cmd, tmux_send_keys
 import time
 
-def start_list_selection(prefix_cmd, arg):
-    tmux_cmd("split-window -h -l 30", prefix_cmd % ("-s %s" % arg))
+def start_list_selection(prefix_cmd, argv):
+    tmux_cmd("split-window -h -l 30", prefix_cmd % ("-s %s" % " ".join(argv)))
     time.sleep(0.2)
     tmux_cmd("copy-mode")
     set_bindings(prefix_cmd)
@@ -41,21 +41,25 @@ def unset_bindings():
 
 def list_selection(prefix, argv, list_func, callback):
     prefix_cmd = prefix + " %s"
-    if argv[0] == "-s":
-        res = list_func(*argv[1:])
-        list_show(res)
-        raw_input()
-    elif argv[0] == "-c":
-        with_selection(callback)
-    elif argv[0] == "-k":
-        if argv[1] == "Up":
-            jump_prev()
-        elif argv[1] == "Down":
-            jump_next()
-        elif argv[1] == "Escape":
-            tmux_send_keys("Enter")
+    if argv:
+        if argv[0] == "-s":
+            res = list_func(*argv[1:])
+            list_show(res)
+            raw_input()
+        elif argv[0] == "-c":
+            with_selection(callback)
+        elif argv[0] == "-k":
+            if argv[1] == "Up":
+                jump_prev()
+            elif argv[1] == "Down":
+                jump_next()
+            elif argv[1] == "Escape":
+                tmux_send_keys("Enter")
+        else:
+            start_list_selection(prefix_cmd, argv)
     else:
-        start_list_selection(prefix_cmd, argv[0])
+        start_list_selection(prefix_cmd, argv)
+
 
 if __name__ == '__main__':
     import sys

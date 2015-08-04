@@ -26,6 +26,13 @@ def clone_conn():
 def extern_ftp():
     current_host().ftp()
 
+def switch_conns(*argv):
+    list_conns = lambda:[l.decode("utf-8")
+                         for l in tmux_cmd("list-windows -F", "#W").splitlines()]
+    select_conn = lambda name:tmux_cmd("select-window -t", name)
+    prefix_cmd = "%s %s" % (__file__, "switch_conns")
+    list_selection(prefix_cmd, argv, list_conns, select_conn)
+
 if __name__ == '__main__':
     import sys
     op_name = sys.argv[1]
