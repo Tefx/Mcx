@@ -23,11 +23,12 @@ def with_selection(func):
     unset_bindings()
     func(selection)
 
-def set_bindings(prefix_cmd):
+def set_bindings(prefix_cmd, keys):
     tmux_cmd("bind-key -n Up run-shell -b", prefix_cmd % "-k Up")
     tmux_cmd("bind-key -n Down run-shell -b", prefix_cmd % "-k Down")
     tmux_cmd("bind-key -t emacs-copy Escape copy-pipe", prefix_cmd % "-k Escape")
-    tmux_cmd("bind-key -t emacs-copy Enter copy-pipe", prefix_cmd % "-c")
+    for k in keys:
+        tmux_cmd("bind-key -t emacs-copy %s copy-pipe" % k, prefix_cmd % ("-c %s" % k))
 
 def unset_bindings():
     tmux_cmd("unbind-key -n Up")
@@ -42,11 +43,11 @@ def list_selection(prefix, argv, list_func, callback):
             res = list_func(*argv[1:])
             list_show(res)
             tmux_cmd("copy-mode")
-            set_bindings(prefix_cmd)
+            set_bindings(prefix_cmd, callback.keys())
             tmux_send_keys("M-R C-a C-Space C-e")
             raw_input()
         elif argv[0] == "-c":
-            with_selection(callback)
+            with_selection(callback[argv[1]])
         elif argv[0] == "-k":
             if argv[1] == "Up":
                 jump_prev()

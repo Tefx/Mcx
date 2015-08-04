@@ -4,6 +4,13 @@ from tmux.selection import list_selection
 from tmux.helper import tmux_cmd
 from hosts import Host
 
+
+search_hosts = lambda pattern:[h.name for h in Host.all_hosts(pattern)]
+create_conn = lambda name:tmux_cmd("new-window -n %s" % name, "%s new_conn '%s'" % (__file__, name))
+list_conns = lambda:[l.decode("utf-8") for l in tmux_cmd("list-windows -F", "#I:#W").splitlines()]
+select_conn = lambda name:tmux_cmd("select-window -t", name.split(":")[0])
+kill_conn = lambda name:tmux_cmd("kill-window -t", name.split(":")[0])
+
 def current_host():
     for l in tmux_cmd("list-windows -F",
                       "#{window_name} #{window_active}").splitlines():
@@ -15,10 +22,8 @@ def new_conn(name):
     Host.get_by_name(name.decode("utf-8")).connect()
 
 def search_and_list(*argv):
-    search_hosts = lambda pattern:[h.name for h in Host.all_hosts(pattern)]
-    connect = lambda name:tmux_cmd("new-window -n %s" % name, "%s new_conn '%s'" % (__file__, name))
     prefix_cmd = "%s %s" % (__file__, "search_and_list")
-    list_selection(prefix_cmd, argv, search_hosts, connect)
+    list_selection(prefix_cmd, argv, search_hosts, {"Enter":create_conn})
 
 def clone_conn():
     current_host().connect()
@@ -27,11 +32,9 @@ def extern_ftp():
     current_host().ftp()
 
 def switch_conns(*argv):
-    list_conns = lambda:[l.decode("utf-8")
-                         for l in tmux_cmd("list-windows -F", "#W").splitlines()]
-    select_conn = lambda name:tmux_cmd("select-window -t", name)
     prefix_cmd = "%s %s" % (__file__, "switch_conns")
-    list_selection(prefix_cmd, argv, list_conns, select_conn)
+    list_selection(prefix_cmd, argv, list_conns, {"Enter":select_conn,
+                                                  "C-D":kill_conn})
 
 if __name__ == '__main__':
     import sys
