@@ -40,7 +40,7 @@ class Host(object):
             child.sendline("yes")
             child.expect("password:")
         child.sendline (self.password)
-        interact_resizable()
+        interact_resizable(child)
 
     def ftp(self):
         url = "ftp://%s:%s@%s" % (self.username, self.password, self.ip)
