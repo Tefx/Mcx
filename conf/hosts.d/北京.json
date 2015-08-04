@@ -1,6 +1,6 @@
 {
-  "北京/server1" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"},
-  "北京/server2" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"},
-  "北京/server3" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"},
-  "北京/server4" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"}
+  "北京/server1" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"},
+  "北京/server2" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"},
+  "北京/server3" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"},
+  "北京/server4" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"}
 }

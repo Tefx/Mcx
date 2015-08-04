@@ -1,1 +1,1 @@
-bind-key S command-prompt -p "[Run]:" "run-shell -b \"python ~/Mcx/tmux/selection.py '%1'\""
+bind-key S command-prompt -p "[SearchHost]:" "run-shell \"python ~/Mcx/ssh.py '%1'\""

@@ -15,14 +15,15 @@ class Configuration(object):
                     for k,v in json.load(f).iteritems():
                         self.__setattr__(k, v)
         self.install_path = os.path.expanduser(self.install_path)
+        self.hosts = {}
+        self.get_hosts()
 
-    def all_hosts(self):
-        conns = {}
+    def get_hosts(self):
         for item in CONF_LOCATIONS:
-            dir = os.path.expanduser(os.path.join(item, HOSTS_DIRS))
-            if os.path.exists(dir):
-                conns.update(read_hosts_from_dir(dir))
-        return conns
+            d = os.path.expanduser(os.path.join(item, HOSTS_DIRS))
+            if os.path.exists(d):
+                self.hosts.update(read_hosts_from_dir(d))
+
 
 # CONN has the form:
 # {"name" : "beijing/server1",
@@ -38,8 +39,4 @@ def read_hosts_from_dir(dir):
                 conns.update(json.load(f))
     return conns
 
-if __name__ == '__main__':
-    conf = Configuration()
-    print conf.install_path
-    print conf.all_hosts()
-
+configuration = Configuration()

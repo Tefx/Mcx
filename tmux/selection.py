@@ -4,9 +4,9 @@ import os.path
 from helper import *
 import time
 
-def show_list(self_loc, arg):
+def start_list_selection(self_loc, arg):
     tmux_cmd("split-window -h -l 30",
-             exec_py(self_loc % ("-l %s" % arg)))
+             exec_py(self_loc % ("-s %s" % arg)))
     time.sleep(0.2)
     tmux_cmd("copy-mode")
     set_bindings(self_loc)
@@ -18,11 +18,11 @@ def jump_prev():
 def jump_next():
     tmux_send_keys("C-g Down C-a C-Space C-e")
 
-def get_res(func, argv):
-    for res in func(*argv):
+def list_show(res):
+    for res in res:
         print res.encode("utf-8")
 
-def do_selected(func):
+def with_selection(func):
     selection = raw_input()
     unset_bindings()
     tmux_send_keys("Enter")
@@ -43,18 +43,19 @@ def unset_bindings():
 
 def list_selection(loc, argv, list_func, callback):
     loc += " %s"
-    if sys.argv[1] == "-l":
-        get_res(list_func, argv[2:])
+    if sys.argv[1] == "-s":
+        res = list_func(*argv[2:])
+        list_show(res)
         raw_input()
     elif argv[1] == "-c":
-        do_selected(callback)
+        with_selection(callback)
     elif argv[1] == "-k":
         if argv[2] == "Up":
             jump_prev()
         elif argv[2] == "Down":
             jump_next()
     else:
-        show_list(loc, argv[1])
+        start_list_selection(loc, argv[1])
 
 if __name__ == '__main__':
     import sys

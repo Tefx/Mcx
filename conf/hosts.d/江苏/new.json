@@ -1,6 +1,6 @@
 {
-  "江苏/new/测试_临时" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"},
-  "江苏/new/MySQL测试" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"},
-  "江苏/new/运行2" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"},
-  "江苏/new/运行@学校" : {"ip": "127.0.0.1", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "123456"}
+  "江苏/new/测试_临时" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"},
+  "江苏/new/MySQL测试" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"},
+  "江苏/new/运行2" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"},
+  "江苏/new/运行@学校" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"}
 }
