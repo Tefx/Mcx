@@ -1,1 +1,3 @@
-bind-key S command-prompt -p "[SearchHost]:" "run-shell \"python ~/Mcx/ssh.py '%1'\""
+bind-key S command-prompt -p "[SearchHost]:" "run-shell \"python ~/Mcx/conn_new.py '%1'\""
+bind-key v split-window -v "python ~/Mcx/conn_clone.py"
+bind-key V split-window -h "python ~/Mcx/conn_clone.py" 

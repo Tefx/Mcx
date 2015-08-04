@@ -1,6 +1,6 @@
 {
-  "镇江/测试" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"},
-  "镇江/开发2" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"},
-  "镇江/Oracle数据库" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"},
-  "镇江/备用MySQL数据库" : {"ip": "192.168.10.12", "conn_type": "ssh", "auth_type": "password", "username": "tefx", "password": "12345678"}
+  "镇江/测试" : {"ip": "192.168.10.12", "conn_type": "telnet", "auth_type": "password", "username": "tefx", "password": "12345678"},
+  "镇江/开发2" : {"ip": "192.168.10.12", "conn_type": "telnet", "auth_type": "password", "username": "tefx", "password": "12345678"},
+  "镇江/Oracle数据库" : {"ip": "192.168.10.12", "conn_type": "telnet", "auth_type": "password", "username": "tefx", "password": "12345678"},
+  "镇江/备用MySQL数据库" : {"ip": "192.168.10.12", "conn_type": "telnet", "auth_type": "password", "username": "tefx", "password": "12345678"}
 }

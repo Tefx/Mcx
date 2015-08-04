@@ -1,6 +1,9 @@
 import os.path
 import sys
 import pexpect
+import subprocess
+import functools
+import struct, fcntl, termios, signal
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from configure import configuration
 from namechecker import check_name
@@ -31,21 +34,43 @@ class Host(object):
         return self.name.encode("utf-8")
 
     def ssh(self):
-        if self.conn_type != "ssh":
-            return
         child = pexpect.spawn('ssh %s@%s' % (self.username,self.ip))
         i = child.expect(["Are you sure you want to continue connecting", "password:"])
         if i == 0:
             child.sendline("yes")
             child.expect("password:")
         child.sendline (self.password)
-        child.interact()
+        interact_resizable()
 
     def ftp(self):
-        pass
+        url = "ftp://%s:%s@%s" % (self.username, self.password, self.ip)
+        subprocess.call([configuration.ftp_tool, url])
 
     def telnet(self):
-        pass
+        child = pexpect.spawn('telnet %s' % self.ip)
+        child.expect("login: ")
+        child.sendline(self.username)
+        child.expect("Password: ")
+        child.sendline(self.password)
+        interact_resizable(child)
+
+    def connect(self):
+        self.__getattribute__(self.conn_type)()
+
+def getwinsize():
+    s = struct.pack("HHHH", 0, 0, 0, 0)
+    a = struct.unpack('hhhh', fcntl.ioctl(sys.stdout.fileno(), termios.TIOCGWINSZ , s))
+    return a[:2]
+
+def sigwinch_passthrough(child, sig, data):
+    a = getwinsize()
+    child.setwinsize(a[0],a[1])
+
+def interact_resizable(child):
+    signal.signal(signal.SIGWINCH, functools.partial(sigwinch_passthrough, child))
+    a = getwinsize()
+    child.setwinsize(a[0], a[1])
+    child.interact()
 
 if __name__ == '__main__':
-    print Host.all_hosts("zj")[0].ssh()
+    Host.all_hosts()[0].connect()

@@ -1,3 +1,4 @@
 {
-"install_path" : "~/Mcx"
+  "install_path" : "~/Mcx",
+  "ftp_tool" : "filezilla"
 }

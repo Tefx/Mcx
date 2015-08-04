@@ -12,9 +12,7 @@ def tmux_cmd(s, other=None):
     cmds = ["tmux"] + s.strip().split()
     if other:
         cmds.append(other)
-    with open("tmp", "a") as f:
-        print >>f, cmds
-    subprocess.check_output(cmds)
+    return subprocess.check_output(cmds)
 
 def tmux_send_keys(keys):
     for k in keys.strip().split():
