@@ -1,3 +1,9 @@
-bind-key S command-prompt -p "[SearchHost]:" "run-shell \"python ~/Mcx/conn_new.py '%1'\""
-bind-key v split-window -v "python ~/Mcx/conn_clone.py"
-bind-key V split-window -h "python ~/Mcx/conn_clone.py" 
+setw -g automatic-rename off
+setw -g allow-rename off
+
+set -g mode-mouse on
+set -g mouse-resize-pane on
+set -g mouse-select-pane on
+set -g mouse-select-window on
+
+run-shell -b ./start.sh

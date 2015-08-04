@@ -14,7 +14,6 @@ class Configuration(object):
                 with open(conf_path) as f:
                     for k,v in json.load(f).iteritems():
                         self.__setattr__(k, v)
-        self.install_path = os.path.expanduser(self.install_path)
         self.hosts = {}
         self.get_hosts()
 

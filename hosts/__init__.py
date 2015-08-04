@@ -30,9 +30,6 @@ class Host(object):
     def get_by_name(name):
         return Host(name, configuration.hosts[name])
 
-    def __repr__(self):
-        return self.name.encode("utf-8")
-
     def ssh(self):
         child = pexpect.spawn('ssh %s@%s' % (self.username,self.ip))
         i = child.expect(["Are you sure you want to continue connecting", "password:"])
