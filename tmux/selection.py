@@ -6,10 +6,6 @@ import time
 
 def start_list_selection(prefix_cmd, argv):
     tmux_cmd("split-window -h -l 30", prefix_cmd % ("-s %s" % " ".join(argv)))
-    time.sleep(0.2)
-    tmux_cmd("copy-mode")
-    set_bindings(prefix_cmd)
-    tmux_send_keys("M-R C-a C-Space C-e")
 
 def jump_prev():
     tmux_send_keys("C-g Up C-a C-Space C-e")
@@ -18,7 +14,7 @@ def jump_next():
     tmux_send_keys("C-g Down C-a C-Space C-e")
 
 def list_show(res):
-    for res in res:
+    for res in sorted(res):
         print res.encode("utf-8")
 
 def with_selection(func):
@@ -45,6 +41,9 @@ def list_selection(prefix, argv, list_func, callback):
         if argv[0] == "-s":
             res = list_func(*argv[1:])
             list_show(res)
+            tmux_cmd("copy-mode")
+            set_bindings(prefix_cmd)
+            tmux_send_keys("M-R C-a C-Space C-e")
             raw_input()
         elif argv[0] == "-c":
             with_selection(callback)
