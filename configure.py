@@ -2,7 +2,7 @@
 import os
 import json
 
-CONF_LOCATIONS = ["/etc/mcx", "/home/tefx/.mcx", "~/Mcx/conf"]
+CONF_LOCATIONS = ["/etc/mcx", "~/.mcx"]
 CONF_FILE = "config.json"
 HOSTS_DIRS = "hosts.d"
 
