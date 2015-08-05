@@ -9,7 +9,7 @@ An tmux-based multi-connections manager
 #### tmux
 Since Mcx is tmux-based, you must use your package manager to install the tmux first.
 #### Python modules: 
-The modules pexpect and pypinyin should be installed via:
+The modules `pexpect` and `pypinyin` should be installed via:
 ```bash
 pip install pexpect pypinyin
 ```
