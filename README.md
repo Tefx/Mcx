@@ -40,8 +40,8 @@ cp -r Mcx/conn_sample ~/.mcx
   - You can alternatively set it to `filezilla` or any other specific app, as long as it can handle the url `ftp://user:password@ip`.
 3. Put you host configurations inside `$CONF_PATH/hosts` folder.
   - Have a Look at the sample host configurations. It should be self-explanatory.
-  - The variable `conn_type` should be either `ssh` or `telnet`.
-  - For now, I have only implemented the `password` authentication approach. I will add the `key` approach ASAP, which uses the security keys.
+  - `conn_type` should be either `ssh` or `telnet`.
+  - `auth_type` should be either `password` or `key`. If the value is `password`, the variable `password` must be set. If the value is `key`, an optional variable `passphrase` might be needed at the same time.
   - The sub-folders and any number of configuration files are acceptable. The `hosts` folder will be scanned recursively for all hosts.
 
 ### Usages
