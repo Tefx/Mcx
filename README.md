@@ -49,10 +49,10 @@ Keybinding           | Description
 <kbd> Prefix F </kbd>| open ftp app connected to current host
 <kbd> Prefix V </kbd>| open a vertically splited pane and connect to the same host
 <kbd> Prefix v </kbd>| open a horizontally splited pane and connect to the same host
-<kbd> Prefix C </kbd>| view all connected hosts. I call this listing pane as the host-list-pane.
-<kbd> Ctrl-D </kbd>  | kill connections to the selected hosts. Works only in the hast-list-pane.
+<kbd> Prefix C </kbd>| view all connected hosts. I call this listing pane as host-listing-pane.
+<kbd> Ctrl-D </kbd>  | kill connections to the selected hosts. Works only in the hast-listing-pane.
   - Notes:
-    - Using <kbd>Prefix S</kbd> to connected an host which is already have connections in other window is considered as a new host. The windows are shown as two in the host-list-pane and can be killed individually.
+    - Using <kbd>Prefix S</kbd> to connected an host which is already have connections in other window is considered as a new host. The windows are shown as two in the host-listing-pane and can be killed individually.
     - All other tmux-shortcuts should be usable as usuall.
     - In searching, the pattern can be full Pinyin, Pinyin Initials, Pinyin first-letters, substrings. `/` is used for split different levels. For example, `北京/new/测试MySQL/Server1` can be matched by:
       - `bj`
