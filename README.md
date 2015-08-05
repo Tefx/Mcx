@@ -54,7 +54,7 @@ Keybinding           | Description
   - Notes:
     - Using <kbd>Prefix S</kbd> to connected an host which is already have connections in other window is considered as a new host. The windows are shown as two in the host-listing-pane and can be killed individually.
     - All other tmux-shortcuts should be usable as usuall.
-    - In searching, the pattern can be full Pinyin, Pinyin Initials, Pinyin first-letters, substrings. `/` is used for split different levels. For example, `北京/new/测试MySQL/Server1` can be matched by:
+    - In searching, the pattern can be full Pinyin, Pinyin Initials, Pinyin first-letters, substrings. `/` is used for split different levels. For example, `"北京/new/测试MySQL/Server1"` can be matched by:
       - `bj`
       - `bj/csh`
       - `bj/cs/1`
