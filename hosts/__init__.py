@@ -32,12 +32,33 @@ class Host(object):
 
     def ssh(self):
         child = pexpect.spawn('ssh %s@%s' % (self.username,self.ip))
+        if self.auth_type == "password":
+            self.ssh_password(child)
+        elif self.auth_type == "key":
+            self.ssh_key(child)
+        interact_resizable(child)
+
+    def ssh_password(self, child):
         i = child.expect(["Are you sure you want to continue connecting", "password:"])
         if i == 0:
             child.sendline("yes")
-            child.expect("password:")
-        child.sendline (self.password)
-        interact_resizable(child)
+            self.ssh_password(child)
+        elif i == 1:
+            child.sendline(self.password)
+
+    def ssh_key(self, child):
+        i = child.expect(["Are you sure you want to continue connecting",
+                          "Enter passphrase for key",
+                          "\$|\#"])
+        if i == 0:
+            child.sendline("yes")
+            self.ssh_key(child)
+        elif i == 1:
+            child.sendline(self.passphrase)
+            self.ssh_key(child)
+        elif i == 2:
+            child.sendline("clear;echo 'Connected to %s. Welcome.'" % self.name)
+
 
     def ftp(self):
         url = "ftp://%s:%s@%s" % (self.username, self.password, self.ip)
