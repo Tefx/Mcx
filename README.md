@@ -28,7 +28,7 @@ cp -r Mcx/conn_sample ~/.mcx
 ```
 2. Change ftp url handler by setting the value of`ftp_tool` in `$CONF_PATH/config.json`.
   - You can easily set it to `xdg-open` for Linux or `open` for Mac OS X.
-  - You can also set it to `filezilla` or other specific apps, unless they can handle the ftp url with form `ftp://user:password@ip`.
+  - You can alternatively set it to `filezilla` or other specific apps, unless they can handle the ftp url with form `ftp://user:password@ip`.
 3. Put you host configurations inside `$CONF_PATH/hosts`.
   - Have a Look at the sample host configurations. It should be self-explanatory.
   - The variable `conn_type` should be either `ssh` or `telnet`.
