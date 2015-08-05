@@ -49,8 +49,8 @@ Keybinding           | Description
 <kbd> Prefix F </kbd>| open ftp app connected to current host
 <kbd> Prefix V </kbd>| open a vertically splited pane and connect to the same host
 <kbd> Prefix v </kbd>| open a horizontally splited pane and connect to the same host
-<kbd> Prefix C </kbd>| view all connected hosts. I call this listing pane as the host-list-pane
-<kbd> Ctrl-D </kbd> in host-list-pane| kill connections to the selected hosts. If there are more than one window connected to the same host, only the connections in the selected window are killed.
+<kbd> Prefix C </kbd>| view all connected hosts. I call this listing pane as the host-list-pane.
+<kbd> Ctrl-D </kbd>  | kill connections to the selected hosts. Works only in the hast-list-pane.
   - Notes:
     - Using <kbd>Prefix S</kbd> to connected an host which is already have connections in other window is considered as a new host. The windows are shown as two in the host-list-pane and can be killed individually.
     - All other tmux-shortcuts should be usable as usuall.
