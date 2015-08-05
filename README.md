@@ -10,12 +10,15 @@ An tmux-based multi-connections manager
 Since `Mcx` is `tmux`-based, you must use your system's package manager to install the `tmux` first. For example, you can use
 ```bash
 apt-get install tmux
-``` in Ubuntu. Or
+```
+in Ubuntu. Or
 ```bash
 brew install tmux
-``` in Mac OS X.
+```
+in Mac OS X.
 #### Python modules: 
 The modules `pexpect` and `pypinyin` should be installed first via:
+
 ```bash
 pip install pexpect pypinyin
 ```
