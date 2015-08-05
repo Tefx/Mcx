@@ -61,4 +61,4 @@ Keybinding           | Description
       - `bj/cs/1`
       - `new/Ser`
       - `ceshi/1`
-      -  And many other pattern. Try out by yourselves.
+      -  And many other patterns. Try out by yourselves.
