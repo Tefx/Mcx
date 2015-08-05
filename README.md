@@ -1,6 +1,6 @@
 # Mcx
 
-An tmux-based multi-connections manager
+A tmux-based SSH/Telnet Client for Managing Many-hosts
 
 ---
 
