@@ -60,7 +60,7 @@ Keybinding           | Description
   - Notes:
     - The <kbd>Prefix</kbd> should be <kbd>Ctrl-B</kbd> by default in `tmux`.
     - Using <kbd>Prefix S</kbd> to connect a host which is already have connections in other window is considered as connecting a new host. The different windows connected to the same host are shown as several hosts in the `host-listing-pane` and can be killed individually.
-    - All other tmux-shortcuts should be usable as usuall.
+    - All other tmux-shortcuts should be usable as usual.
     - In searching, the patterns can be full Pinyin, Pinyin Initials, Pinyin first-letters or substrings. `/` is used for splitting different levels. For example, `"北京/new/测试MySQL/Server1"` can be matched by:
       - `bj`
       - `bj/csh`

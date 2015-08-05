@@ -9,7 +9,6 @@ search_hosts = lambda pattern:[h.name for h in Host.all_hosts(pattern)]
 create_conn = lambda name:tmux_cmd("new-window -n %s" % name, "%s new_conn '%s'" % (__file__, name))
 list_conns = lambda:[l.decode("utf-8") for l in tmux_cmd("list-windows -F", "#I:#W").splitlines()]
 select_conn = lambda name:tmux_cmd("select-window -t", name.split(":")[0])
-kill_conn = lambda name:tmux_cmd("kill-window -t", name.split(":")[0])
 
 def current_host():
     for l in tmux_cmd("list-windows -F",
@@ -30,6 +29,10 @@ def clone_conn():
 
 def extern_ftp():
     current_host().ftp()
+
+def kill_conn(name):
+    tmux_cmd("kill-window -t", name.split(":")[0])
+    switch_conns()
 
 def switch_conns(*argv):
     prefix_cmd = "%s %s" % (__file__, "switch_conns")

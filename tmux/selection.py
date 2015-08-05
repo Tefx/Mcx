@@ -1,8 +1,5 @@
 #!coding=utf-8
-import os.path
-
 from helper import tmux_cmd, tmux_send_keys
-import time
 
 def start_list_selection(prefix_cmd, argv):
     tmux_cmd("split-window -h -l 30", prefix_cmd % ("-s %s" % " ".join(argv)))
