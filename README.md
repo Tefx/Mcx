@@ -11,7 +11,7 @@ Since `Mcx` is `tmux`-based, you must use your system's package manager to insta
 ```bash
 apt-get install tmux
 ```
-in Ubuntu. Or
+in Ubuntu, or
 ```bash
 brew install tmux
 ```
@@ -23,7 +23,7 @@ The modules `pexpect`, `toml` and `pypinyin` should be installed first via:
 pip install pexpect pypinyin toml
 ```
 #### Ftp client
-An application that can handle the ftp urls. If you do not use ftp, this can be ignored.
+An application that can handle the `"ftp://"` urls should be installed. If you do not use ftp, this can be ignored.
     
 ### Basic Installation
 #### Clone this repository
@@ -32,9 +32,10 @@ git clone https://github.com/Tefx/Mcx.git
 ```
 #### Configuration
 1. Copy the sample configurations to `/etc/mcx` or `~/.mcx`:
-```bash
-cp -r Mcx/conn_sample ~/.mcx
-```
+    
+    ```bash
+    cp -r Mcx/conn_sample ~/.mcx
+    ```
 2. Change the ftp url handler by setting the value of`ftp_tool` in `$CONF_PATH/config.json`.
   - You can easily set it to `xdg-open` for Linux or `open` for Mac OS X.
   - You can alternatively set it to `filezilla` or any other specific app, as long as it can handle the url `ftp://user:password@ip`.
