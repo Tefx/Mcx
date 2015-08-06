@@ -1,9 +1,10 @@
 #!coding=utf-8
 import os
-import json
+import toml
+import copy
 
 CONF_LOCATIONS = ["/etc/mcx", "~/.mcx"]
-CONF_FILE = "config.json"
+CONF_FILE = "config.toml"
 HOSTS_DIRS = "hosts.d"
 
 class Configuration(object):
@@ -12,7 +13,7 @@ class Configuration(object):
             conf_path = os.path.expanduser(os.path.join(item, CONF_FILE))
             if os.path.exists(conf_path):
                 with open(conf_path) as f:
-                    for k,v in json.load(f).iteritems():
+                    for k,v in toml.load(f).iteritems():
                         self.__setattr__(k, v)
         self.hosts = {}
         self.get_hosts()
@@ -32,10 +33,19 @@ class Configuration(object):
 #  "password"  : "123456"}
 def read_hosts_from_dir(dir):
     conns = {}
-    for (base, dirs, files) in os.walk(dir):
+    for (base, _, files) in os.walk(dir):
         for path in files:
             with open(os.path.join(base, path)) as f:
-                conns.update(json.load(f))
+                d = toml.load(f)
+            default_conf = d["Default"]
+            for key, conf in d.iteritems():
+                if key != "Default":
+                    host = copy.copy(default_conf)
+                    host.update(conf)
+                    conns.update({key.decode("utf-8"):host})
     return conns
 
 configuration = Configuration()
+
+if __name__ == '__main__':
+    print configuration.ftp_tool

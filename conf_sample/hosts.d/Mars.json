@@ -1,6 +1,0 @@
-{
-  "Mars/server1":{"ip":"192.168.10.12", "conn_type":"ssh", "auth_type":"key", "username":"zzm"},
-  "Mars/server2":{"ip":"192.168.10.12", "conn_type":"ssh", "auth_type":"key", "username":"zzm"},
-  "Mars/server3":{"ip":"192.168.10.12", "conn_type":"ssh", "auth_type":"key", "username":"zzm"},
-  "Mars/server4":{"ip":"192.168.10.12", "conn_type":"ssh", "auth_type":"key", "username":"zzm", "passphrase":"12345678"}
-}

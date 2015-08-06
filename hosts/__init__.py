@@ -91,4 +91,5 @@ def interact_resizable(child):
     child.interact()
 
 if __name__ == '__main__':
-    Host.all_hosts()[0].connect()
+    for h in Host.all_hosts():
+        print h.name.decode("utf-8"), h.ip, h.conn_type, h.auth_type, h.username

@@ -17,10 +17,10 @@ brew install tmux
 ```
 in Mac OS X.
 #### Python modules: 
-The modules `pexpect` and `pypinyin` should be installed first via:
+The modules `pexpect`, `toml` and `pypinyin` should be installed first via:
 
 ```bash
-pip install pexpect pypinyin
+pip install pexpect pypinyin toml
 ```
 #### Ftp client
 An application that can handle the ftp urls. If you do not use ftp, this can be ignored.
