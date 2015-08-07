@@ -3,17 +3,53 @@ import sys
 import pexpect
 import subprocess
 import functools
+import hashlib
 import struct, fcntl, termios, signal
+import tempfile
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from configure import configuration
-from namechecker import check_name
 del sys.path[-1]
+from namechecker import check_name
+
 
 class Host(object):
     def __init__(self, name, conf):
         self.name = name
+        self.uid = hashlib.md5(name.encode("utf-8")).hexdigest()
         for k, v in conf.iteritems():
             self.__setattr__(k, v)
+
+    def get_mountpoint(self):
+        return os.path.join(tempfile.gettempdir(), self.uid)
+
+    def mount_fs(self):
+        mountpoint = self.get_mountpoint()
+        if not os.path.exists(mountpoint):
+            os.mkdir(mountpoint)
+        if os.path.ismount(mountpoint):
+            self.umount_fs()
+        mounter = self.__getattribute__("mount_%s" % self.fs_mounter)
+        mounter(mountpoint)
+
+    def umount_fs(self):
+        mountpoint = self.get_mountpoint()
+        umounter = getattr(self, self.fs_mounter, self.umount_default)
+        umounter(mountpoint)
+
+    def umount_default(self, mountpoint):
+        subprocess.check_call(["fusermount", "-u", mountpoint])
+
+    def mount_sshfs(self, mountpoint):
+        mount_cmd = 'sshfs %s@%s: %s' % (self.username, self.ip, mountpoint)
+        child = pexpect.spawn(mount_cmd)
+        i = child.expect(["password", pexpect.EOF])
+        if i == 0:
+            child.sendline(self.password)
+
+    def mount_curlftpfs(self, mountpoint):
+        ftp_url = '%s:%s@%s' % (self.username, self.password, self.ip)
+        subprocess.check_output(["curlftpfs", ftp_url, mountpoint])
 
     def match(self, pattern):
         return check_name(self.name, pattern)
@@ -29,6 +65,12 @@ class Host(object):
     @staticmethod
     def get_by_name(name):
         return Host(name, configuration.hosts[name])
+
+    @staticmethod
+    def get_by_uid(uid):
+        for k, v in configuration.hosts.iteritems():
+            if hashlib.md5(k.encode("utf-8")).hexdigest() == uid:
+                return Host(k, v)
 
     def ssh(self):
         child = pexpect.spawn('ssh %s@%s' % (self.username,self.ip))
@@ -91,5 +133,4 @@ def interact_resizable(child):
     child.interact()
 
 if __name__ == '__main__':
-    for h in Host.all_hosts():
-        print h.name.decode("utf-8"), h.ip, h.conn_type, h.auth_type, h.username
+    Host.all_hosts()[1].connect()

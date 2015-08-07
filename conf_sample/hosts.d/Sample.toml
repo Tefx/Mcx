@@ -3,6 +3,7 @@
 ip = "192.168.10.8"
 auth_type = "password"
 conn_type = "ssh"
+fs_mounter = "sshfs"
 
 ["北京/server1"]
 username = "test_password"

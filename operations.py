@@ -1,7 +1,8 @@
 #!/usr/bin/env python
+import os.path
 
 from tmux.selection import list_selection
-from tmux.helper import tmux_cmd
+from tmux.helper import tmux_cmd, tmux_send_keys
 from hosts import Host
 
 
@@ -34,10 +35,16 @@ def kill_conn(name):
     tmux_cmd("kill-window -t", name.split(":")[0])
     switch_conns()
 
+def paste_to_local():
+    uid = current_host().uid
+    tmux_cmd("send-keys -t LOCAL -l", " "+uid)
+    tmux_cmd("select-window -t LOCAL")
+    tmux_send_keys("C-a")
+
 def switch_conns(*argv):
     prefix_cmd = "%s %s" % (__file__, "switch_conns")
     list_selection(prefix_cmd, argv, list_conns, {"Enter":select_conn,
-                                                  "C-D":kill_conn})
+                                                  "d":kill_conn})
 
 if __name__ == '__main__':
     import sys

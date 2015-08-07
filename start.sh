@@ -11,5 +11,9 @@ tmux bind-key v split-window -v "$OPS clone_conn"
 tmux bind-key V split-window -h "$OPS clone_conn"
 tmux bind-key F run-shell -b "$OPS extern_ftp > /dev/null"
 tmux bind-key C run-shell -b "$OPS switch_conns > /dev/null"
+tmux bind-key M-p run-shell -b "$OPS paste_to_local > /dev/null"
+tmux bind-key M-l new-window -n LOCAL
 
 tmux rename-window LOCAL
+
+chmod a+x tools/*
