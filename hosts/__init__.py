@@ -43,7 +43,7 @@ class Host(object):
     def mount_sshfs(self, mountpoint):
         mount_cmd = 'sshfs %s@%s: %s' % (self.username, self.ip, mountpoint)
         child = pexpect.spawn(mount_cmd)
-        i = child.expect(["password", pexpect.EOF])
+        i = child.expect(["[Pp]assword", pexpect.EOF])
         if i == 0:
             child.sendline(self.password)
 
@@ -81,7 +81,7 @@ class Host(object):
         interact_resizable(child)
 
     def ssh_password(self, child):
-        i = child.expect(["Are you sure you want to continue connecting", "password:"])
+        i = child.expect(["Are you sure you want to continue connecting", "[Pp]assword:"])
         if i == 0:
             child.sendline("yes")
             self.ssh_password(child)

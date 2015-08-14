@@ -42,6 +42,7 @@ def read_hosts_from_dir(dir):
                 if key != "Default":
                     host = copy.copy(default_conf)
                     host.update(conf)
+                    key = key.replace(" ", "_").replace("\t","__")
                     conns.update({key.decode("utf-8"):host})
     return conns
 

@@ -1,2 +1,5 @@
 ftp_tool = "filezilla"
 path_opener = "spacefm"
+
+[custom_host_conf]
+ocs = "read_ocs"

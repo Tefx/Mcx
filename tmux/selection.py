@@ -14,10 +14,10 @@ def list_show(res):
     for res in sorted(res):
         print res.encode("utf-8")
 
-def with_selection(func):
+def with_selection(func, keys):
     tmux_send_keys("Enter")
     selection = raw_input()
-    unset_bindings()
+    unset_bindings(keys)
     func(selection)
 
 def set_bindings(prefix_cmd, keys):
@@ -27,11 +27,12 @@ def set_bindings(prefix_cmd, keys):
     for k in keys:
         tmux_cmd("bind-key -t emacs-copy %s copy-pipe" % k, prefix_cmd % ("-c %s" % k))
 
-def unset_bindings():
+def unset_bindings(keys):
     tmux_cmd("unbind-key -n Up")
     tmux_cmd("unbind-key -n Down")
     tmux_cmd("unbind-key -t emacs-copy Escape")
-    tmux_cmd("unbind-key -t emacs-copy Enter")
+    for k in keys:
+        tmux_cmd("unbind-key -t emacs-copy %s" % k)
 
 def list_selection(prefix, argv, list_func, callback):
     prefix_cmd = prefix + " %s"
@@ -44,7 +45,7 @@ def list_selection(prefix, argv, list_func, callback):
             tmux_send_keys("M-R C-a C-Space C-e")
             raw_input()
         elif argv[0] == "-c":
-            with_selection(callback[argv[1]])
+            with_selection(callback[argv[1]], callback.keys())
         elif argv[0] == "-k":
             if argv[1] == "Up":
                 jump_prev()

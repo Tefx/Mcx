@@ -1,46 +1,46 @@
 [Default]
 # This special host holds the default attributions for all the hosts in this files.
-ip = "192.168.10.8"
+ip = "127.0.0.1"
 auth_type = "password"
 conn_type = "ssh"
 fs_mounter = "sshfs"
 
 ["北京/server1"]
-username = "test_password"
-password = "12345678"
+username = "tefx"
+password = "88580323"
 
 ["北京/server2"]
-username = "test_password"
-password = "12345678"
+username = "tefx"
+password = "88580323"
 
 ["镇江/MySQL/生产"]
-username = "test_password"
-password = "12345678"
+username = "tefx"
+password = "88580323"
 
 ["镇江/MySQL/测试"]
-auth_type = "key"
-username = "test_key"
+username = "tefx"
+password = "88580323"
 
 ["镇江/Backup"]
-username = "test_password"
-password = "12345678"
+username = "tefx"
+password = "88580323"
 
 ["镇江"]
-username = "test_password"
-password = "12345678"
+username = "tefx"
+password = "88580323"
 
 ["江苏/南京/江宁"]
-auth_type = "key"
-username = "test_key"
+username = "tefx"
+password = "88580323"
 
 ["江苏/南京"]
-auth_type = "key"
-username = "test_key"
+username = "tefx"
+password = "88580323"
 
 ["Galaxy/Solar/Earth"]
-username = "test_password"
-password = "12345678"
+username = "tefx"
+password = "88580323"
 
 ["Galaxy/Solar/Mars"]
-auth_type = "key"
-username = "test_key"
+username = "tefx"
+password = "88580323"
