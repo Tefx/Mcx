@@ -1,0 +1,8 @@
+ip,username,password
+
+#conn_type="ssh"
+#auth_type="password"
+#encoding="utf8"
+
+[本地]
+desktop:127.0.0.1,tefx,88580323

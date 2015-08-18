@@ -5,7 +5,6 @@ from tmux.selection import list_selection
 from tmux.helper import tmux_cmd, tmux_send_keys
 from hosts import Host
 
-
 search_hosts = lambda *argv:[h.name for h in Host.all_hosts(*argv)]
 create_conn = lambda name:tmux_cmd("new-window -n %s" % name, "%s new_conn '%s'" % (__file__, name))
 list_conns = lambda:[l.decode("utf-8") for l in tmux_cmd("list-windows -F", "#I:#W").splitlines()]

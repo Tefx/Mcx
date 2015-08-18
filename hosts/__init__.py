@@ -72,8 +72,14 @@ class Host(object):
             if hashlib.md5(k.encode("utf-8")).hexdigest() == uid:
                 return Host(k, v)
 
+    def set_encoding(self):
+        encoding = getattr(self, "encoding", "utf8")
+        return "%sluit -encoding %s" % (getattr(configuration, "luit_path", ""), encoding)
+
     def ssh(self):
-        child = pexpect.spawn('ssh %s@%s' % (self.username,self.ip))
+        encoding_filter = self.set_encoding()
+        print '%s ssh %s@%s' % (encoding_filter, self.username,self.ip)
+        child = pexpect.spawn('%s ssh %s@%s' % (encoding_filter, self.username,self.ip))
         if self.auth_type == "password":
             self.ssh_password(child)
         elif self.auth_type == "key":
@@ -107,7 +113,8 @@ class Host(object):
         subprocess.call([configuration.ftp_tool, url])
 
     def telnet(self):
-        child = pexpect.spawn('telnet %s' % self.ip)
+        encoding_filter = self.set_encoding()
+        child = pexpect.spawn('%s telnet %s' % (encoding_filter, self.ip))
         child.expect("login: ")
         child.sendline(self.username)
         child.expect("Password: ")
@@ -133,4 +140,4 @@ def interact_resizable(child):
     child.interact()
 
 if __name__ == '__main__':
-    Host.all_hosts()[1].connect()
+    print [h.name for h in Host.all_hosts()]
