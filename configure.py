@@ -36,17 +36,34 @@ def read_hosts_from_dir(dir):
     for (base, _, files) in os.walk(dir):
         for path in files:
             with open(os.path.join(base, path)) as f:
-                d = toml.load(f)
-            default_conf = d["Default"]
-            for key, conf in d.iteritems():
-                if key != "Default":
-                    host = copy.copy(default_conf)
-                    host.update(conf)
-                    key = key.replace(" ", "_").replace("\t","__")
-                    conns.update({key.decode("utf-8"):host})
+                conns.update(read_host(f))
     return conns
+
+def read_host(f):
+    fields = f.readline().strip().split(",")
+    prefix = None
+    hosts = {}
+    defaults = {}
+    for line in f:
+        line = line.strip()
+        if not line:continue
+        if line[0] == "[" and line[-1] == "]":
+            prefix = line[1:-1]
+        elif line[0] == "#":
+            k, v = [x.strip() for x in line[1:].split("=")]
+            defaults[k] = eval(v)
+        else:
+            name,values = [x.strip() for x in line.split(":")]
+            if prefix:
+                name = "%s/%s" % (prefix.decode("utf-8"), name.decode("utf-8"))
+            else:
+                name = name.decode("utf-8")
+            values = [x.strip() for x in values.split(",")]
+            hosts[name] = copy.deepcopy(defaults)
+            hosts[name].update({k:v for (k,v) in zip(fields, values)})
+    return hosts
 
 configuration = Configuration()
 
 if __name__ == '__main__':
-    print configuration.ftp_tool
+    print configuration.hosts
