@@ -78,8 +78,9 @@ class Host(object):
 
     def ssh(self):
         encoding_filter = self.set_encoding()
-        print '%s ssh %s@%s' % (encoding_filter, self.username,self.ip)
-        child = pexpect.spawn('%s ssh %s@%s' % (encoding_filter, self.username,self.ip))
+        cmd = 'env TERM=xterm %s ssh %s@%s' % (encoding_filter, self.username,self.ip)
+        print cmd
+        child = pexpect.spawn(cmd)
         if self.auth_type == "password":
             self.ssh_password(child)
         elif self.auth_type == "key":
@@ -114,7 +115,9 @@ class Host(object):
 
     def telnet(self):
         encoding_filter = self.set_encoding()
-        child = pexpect.spawn('%s telnet %s' % (encoding_filter, self.ip))
+        cmd = 'env TERM=xterm %s telnet %s' % (encoding_filter, self.ip)
+        print cmd
+        child = pexpect.spawn(cmd)
         child.expect("login: ")
         child.sendline(self.username)
         child.expect("Password: ")
@@ -140,4 +143,4 @@ def interact_resizable(child):
     child.interact()
 
 if __name__ == '__main__':
-    print [h.name for h in Host.all_hosts()]
+    Host.all_hosts()[0].ssh()
