@@ -36,15 +36,21 @@ def read_host(f):
     fields = f.readline().strip().split(",")
     prefix = None
     hosts = {}
-    defaults = {}
+    default_vs = {}
+    in_local=False
     for line in f:
         line = line.strip()
         if not line:continue
         if line[0] == "[" and line[-1] == "]":
             prefix = line[1:-1]
+            in_local = True
+            local_vs = copy.deepcopy(default_vs)
         elif line[0] == "#":
             k, v = [x.strip() for x in line[1:].split("=")]
-            defaults[k] = eval(v)
+            if in_local:
+                local_vs[k] = eval(v)
+            else:
+                default_vs[k] = eval(v)
         else:
             name,values = [x.strip() for x in line.split(":")]
             if prefix:
@@ -52,11 +58,12 @@ def read_host(f):
             else:
                 name = name.decode("utf-8")
             values = [x.strip() for x in values.split(",")]
-            hosts[name] = copy.deepcopy(defaults)
+            hosts[name] = copy.deepcopy(local_vs)
             hosts[name].update({k:v for (k,v) in zip(fields, values)})
     return hosts
 
 configuration = Configuration()
 
 if __name__ == '__main__':
-    print configuration.hosts
+    for h,v in configuration.hosts.iteritems():
+        print h,v
