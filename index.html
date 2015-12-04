@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Mcx by Tefx</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/Tefx/Mcx">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/Tefx/Mcx/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/Tefx/Mcx/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Mcx</h1>
+          <p>A tmux-based SSH/Telnet Client for Managing Many-hosts</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/Tefx">Tefx</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a id="mcx" class="anchor" href="#mcx" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mcx</h1>
+
+<p>A tmux-based SSH/Telnet Client for Managing Many-hosts</p>
+
+<hr>
+
+<h2>
+<a id="get-started" class="anchor" href="#get-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get Started</h2>
+
+<h3>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prerequisites</h3>
+
+<h4>
+<a id="tmux" class="anchor" href="#tmux" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>tmux</code>
+</h4>
+
+<p>Since <code>Mcx</code> is <code>tmux</code>-based, you must use your system's package manager to install the <code>tmux</code> first. For example, you can use</p>
+
+<div class="highlight highlight-source-shell"><pre>apt-get install tmux</pre></div>
+
+<p>in Ubuntu, or</p>
+
+<div class="highlight highlight-source-shell"><pre>brew install tmux</pre></div>
+
+<p>in Mac OS X.</p>
+
+<h4>
+<a id="python-modules" class="anchor" href="#python-modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python modules:</h4>
+
+<p>The modules <code>pexpect</code>, <code>toml</code> and <code>pypinyin</code> should be installed first via:</p>
+
+<div class="highlight highlight-source-shell"><pre>pip install pexpect pypinyin toml</pre></div>
+
+<h4>
+<a id="ftp-client" class="anchor" href="#ftp-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ftp client</h4>
+
+<p>An application that can handle the <code>"ftp://"</code> urls should be installed. If you do not use ftp, this can be ignored.</p>
+
+<h3>
+<a id="basic-installation" class="anchor" href="#basic-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic Installation</h3>
+
+<h4>
+<a id="clone-this-repository" class="anchor" href="#clone-this-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Clone this repository</h4>
+
+<div class="highlight highlight-source-shell"><pre>git clone https://github.com/Tefx/Mcx.git</pre></div>
+
+<h4>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h4>
+
+<ol>
+<li>
+<p>Copy the sample configurations to <code>/etc/mcx</code> or <code>~/.mcx</code>:</p>
+
+<div class="highlight highlight-source-shell"><pre>cp -r Mcx/conn_sample <span class="pl-k">~</span>/.mcx</pre></div>
+</li>
+<li>Change the ftp url handler by setting the value of<code>ftp_tool</code> in <code>$CONF_PATH/config.json</code>.
+
+<ul>
+<li>You can easily set it to <code>xdg-open</code> for Linux or <code>open</code> for Mac OS X.</li>
+<li>You can alternatively set it to <code>filezilla</code> or any other specific app, as long as it can handle the url <code>ftp://user:password@ip</code>.</li>
+</ul>
+</li>
+<li>Put you host configurations inside <code>$CONF_PATH/hosts</code> folder.
+
+<ul>
+<li>Have a Look at the sample host configurations. It should be self-explanatory.</li>
+<li>
+<code>conn_type</code> should be either <code>ssh</code> or <code>telnet</code>.</li>
+<li>
+<code>auth_type</code> should be either <code>password</code> or <code>key</code>. If the value is <code>password</code>, the variable <code>password</code> must be set. If the value is <code>key</code>, an optional variable <code>passphrase</code> might be needed at the same time.</li>
+<li>The sub-folders and any number of configuration files are acceptable. The <code>hosts</code> folder will be scanned recursively for all hosts.</li>
+</ul>
+</li>
+</ol>
+
+<h3>
+<a id="usages" class="anchor" href="#usages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usages</h3>
+
+<h4>
+<a id="launch" class="anchor" href="#launch" aria-hidden="true"><span class="octicon octicon-link"></span></a>Launch</h4>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> Mcx<span class="pl-k">;</span>tmux -f tmux.<span class="pl-c1">source</span></pre></div>
+
+<h4>
+<a id="keymap" class="anchor" href="#keymap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Keymap</h4>
+
+<table>
+<thead>
+<tr>
+<th>Keybinding</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><kbd> Prefix S </kbd></td>
+<td>search hosts by name.</td>
+</tr>
+<tr>
+<td><kbd> Prefix F </kbd></td>
+<td>open ftp application and connect to the current host.</td>
+</tr>
+<tr>
+<td><kbd> Prefix V </kbd></td>
+<td>open a vertically splited pane and connect to the same host.</td>
+</tr>
+<tr>
+<td><kbd> Prefix v </kbd></td>
+<td>open a horizontally splited pane and connect to the same host.</td>
+</tr>
+<tr>
+<td><kbd> Prefix C </kbd></td>
+<td>view all connected hosts. I call this listing pane as <code>host-listing-pane</code>.</td>
+</tr>
+<tr>
+<td><kbd> d </kbd></td>
+<td>kill connections to the selected hosts. Works only in the <code>hast-listing-pane</code>.</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>Notes:
+
+<ul>
+<li>The <kbd>Prefix</kbd> should be <kbd>Ctrl-B</kbd> by default in <code>tmux</code>.</li>
+<li>Using <kbd>Prefix S</kbd> to connect a host which is already have connections in other window is considered as connecting a new host. The different windows connected to the same host are shown as several hosts in the <code>host-listing-pane</code> and can be killed individually.</li>
+<li>All other tmux-shortcuts should be usable as usual.</li>
+<li>In searching, the patterns can be full Pinyin, Pinyin Initials, Pinyin first-letters or substrings. <code>/</code> is used for splitting different levels. For example, <code>"北京/new/测试MySQL/Server1"</code> can be matched by:
+
+<ul>
+<li><code>bj</code></li>
+<li><code>bj/csh</code></li>
+<li><code>bj/cs/1</code></li>
+<li><code>new/Ser</code></li>
+<li><code>ceshi/1</code></li>
+<li> And many other patterns. Try out by yourselves.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
